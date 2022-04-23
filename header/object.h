@@ -44,6 +44,32 @@ static inline void set_object_position(volatile obj_attrs *object, int x,
 					(x & OBJECT_ATTR1_X_MASK);
 }
 
+// Set the position of an object to specified x and y coordinates
+static inline void set_object_position_x(volatile obj_attrs *object, int x)
+{
+	object->attr1 = (object->attr1 & ~OBJECT_ATTR1_X_MASK) |
+					(x & OBJECT_ATTR1_X_MASK);
+}
+
+// Set the position of an object to specified x and y coordinates
+static inline void set_object_position_y(volatile obj_attrs *object, int y)
+{
+	object->attr0 = (object->attr0 & ~OBJECT_ATTR0_Y_MASK) |
+					(y & OBJECT_ATTR0_Y_MASK);
+}
+
+// Set the position of an object to specified x and y coordinates
+static inline uint16 get_object_position_x(volatile obj_attrs *object)
+{
+	return (object->attr1 & OBJECT_ATTR1_X_MASK);
+}
+
+// Set the position of an object to specified x and y coordinates
+static inline uint16 get_object_position_y(volatile obj_attrs *object)
+{
+	return (object->attr0 & OBJECT_ATTR0_Y_MASK);
+}
+
 // Set the starting tile of an object to t
 static inline void set_object_tile(volatile obj_attrs *object, int t)
 {

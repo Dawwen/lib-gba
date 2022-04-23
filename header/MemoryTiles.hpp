@@ -7,8 +7,13 @@
 
 class MemoryTiles : public MemoryBlock {
     // Attributes
+    public :
+        uint32 animationFrame = 0;
+    // Operations
+        MemoryTiles (uint32 start, uint32 end, AnimationAtlas* data);
+        void nextFrame ();
     private :
-        uint8 sizeShape;
+        void updateMemory ();
 };
 
 #endif

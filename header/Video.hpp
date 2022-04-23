@@ -16,6 +16,7 @@ class Video {
         void init ();
         uint32 loadAtlasInMemory (uint16 resourceId);
         Sprite* createSprite (uint16 resourceId);
+        void waitVBlank ();
 };
 
 #endif

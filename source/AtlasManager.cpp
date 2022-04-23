@@ -26,7 +26,7 @@ AnimationAtlas AtlasManager::getAnimationAtlas(uint32 id) {
     return *(this->arrayOfAtlas.data);
 }
 
-MemoryTiles AtlasManager::getAtlasInMemory(uint32 resourceId) {
+MemoryTiles& AtlasManager::getAtlasInMemory(uint32 resourceId) {
     // TODO this function properly
     return this->videoMemoryManager.getAtlas(resourceId);
 }

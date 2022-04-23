@@ -19,9 +19,14 @@ uint32 Video::loadAtlasInMemory(uint16 resourceId) {
 }
 
 Sprite* Video::createSprite(uint16 resourceId) {
-	MemoryTiles resource = this->atlasManager.getAtlasInMemory(resourceId);
+	MemoryTiles& resource = this->atlasManager.getAtlasInMemory(resourceId);
 	return this->objectManager.createSprite(resource);
 }
 
+void Video::waitVBlank() {
+	/* wait until all 160 lines have been updated */
+	while (*scanline_counter >= 160);
+	while (*scanline_counter < 160);
+}
 
 

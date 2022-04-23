@@ -4,8 +4,8 @@
 #include "type.h"
 
 #include "AnimationAtlas.hpp"
-#include "MemoryTiles.hpp"
 #include "LinkedList.hpp"
+#include "MemoryTiles.hpp"
 #include "MemoryPalet.hpp"
 
 class VideoMemoryManager {
@@ -19,7 +19,7 @@ class VideoMemoryManager {
     public :
         uint32 loadPalet (AnimationAtlas atlas);
         uint32 loadAtlas (AnimationAtlas atlas);
-        MemoryTiles getAtlas (uint32 atlasId);
+        MemoryTiles& getAtlas (uint32 atlasId);
 };
 
 #endif

@@ -50,6 +50,9 @@ if __name__ == "__main__":
 	#TODO maybe remove this (the pointer can be found with an hard adress)
 	adds_line_after_tag("AtlasManager.hpp", '^#include "type.h"$', '#include "animation_resource.h"')
 
+	adds_line_after_tag("ObjectManager.hpp", '^#include "type.h"$', '#include "object.h"')
+	adds_line_after_tag("Sprite.hpp", '^#include "type.h"$', '#include "object.h"')
+
 	# replace the generated array with my implementation
 	replace_line("AnimationAtlas.hpp", '#include "array.hpp"', '#include "array.h"')
 	replace_line("AtlasManager.hpp", '#include "array.hpp"', '#include "array.h"')

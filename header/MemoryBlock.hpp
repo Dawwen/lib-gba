@@ -7,10 +7,13 @@
 
 class MemoryBlock {
     // Attributes
-    private :
+    protected :
         AnimationAtlas* resource;
         uint32 startAdress;
         uint32 endAdress;
+    // Operations
+    public :
+        MemoryBlock (uint32 start, uint32 end, AnimationAtlas* data);
 };
 
 #endif

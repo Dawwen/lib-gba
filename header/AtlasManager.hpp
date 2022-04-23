@@ -6,7 +6,6 @@
 
 #include "VideoMemoryManager.hpp"
 #include "AnimationAtlas.hpp"
-#include "MemoryTiles.hpp"
 #include "array.h"
 
 class AtlasManager {
@@ -24,7 +23,7 @@ class AtlasManager {
         AnimationAtlas getAnimationAtlas (uint32 id);
     public :
         uint32 loadAtlasInMemory (uint32 resourceId);
-        MemoryTiles getAtlasInMemory (uint32 resourceId);
+        MemoryTiles& getAtlasInMemory (uint32 resourceId);
 };
 
 #endif
