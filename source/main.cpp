@@ -1,31 +1,53 @@
 #include "Video.hpp"
 #include "Sprite.hpp"
-
+#include <malloc.h>
+#include "input.h"
 
 #define SUBARU_RESOURCE 1
 
+#define DUCK_NUM 2
 
 int main() {
 	Video video;
 
 	video.init();
 	video.loadAtlasInMemory(SUBARU_RESOURCE);
+	
 	Sprite *s = video.createSprite(SUBARU_RESOURCE);
+	Sprite *sprites[128];
+	for (uint32 i = 0; i < 127; i++)
+	{
+		sprites[i] = video.createSprite(SUBARU_RESOURCE);
+		sprites[i]->setX((i*16) % 208);
+		sprites[i]->setY(((i * 16) / 208) * 16);
+	}
+	video.removeSprite(sprites[3]);
+	Sprite *sa = video.createSprite(SUBARU_RESOURCE);
+	sa->setY(100);
 
-	uint32 dx = 1, dy = 1, d = 0;
+
+	uint32 dx, dy, d = 0;
 	uint16 x,y;
 	while(1) {
-		x = s->getX();
-		y = s->getY();
+		dx = 0, dy = 0;
 
-		if (x < 0 || x  > 240 - 32) {
-			dx = - dx;
+		key_poll();
+		if (key_pushed(KEY_LEFT)) {
+			dx--;
 		}
-		if (y < 0 || y  > 160 - 32) {
-			dy = - dy;
+		if (key_pushed(KEY_RIGHT)) {
+			dx++;
+		}
+		if (key_pushed(KEY_UP)) {
+			dy--;
+		}
+		if (key_pushed(KEY_DOWN)) {
+			dy++;
 		}
 
-		s->move(dx,dy);
+		s->move(dx, dy);
+		
+
 		if (d == 5) {
 			s->nextFrame();
 			d = 0;
@@ -33,9 +55,4 @@ int main() {
 		video.waitVBlank();
 		d++;
 	}
-
-	// Sprite *s = video.createSprite(SUBARU_RESOURCE);
-	// s.move(10,10);
-	// s.nextFrame();
-
 }

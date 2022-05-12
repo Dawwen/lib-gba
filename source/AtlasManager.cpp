@@ -1,11 +1,11 @@
 #include "AtlasManager.hpp"
-#include <stdlib.h>
+// #include <stdlib.h>
 
-extern void*  __start_info[];
-extern void*  __stop_info[];
+extern void*  __start_sprite[];
+extern void*  __stop_sprite[];
 
 AtlasManager::AtlasManager() {
-    animation_resource* offset= (animation_resource*)__start_info;
+    animation_resource* offset= (animation_resource*)__start_sprite;
     AnimationAtlas *a =  new AnimationAtlas(offset);
     
 

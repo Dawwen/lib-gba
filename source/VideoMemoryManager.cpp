@@ -2,14 +2,10 @@
 
 #include "object.h"
 
-
-MemoryTiles* m;
-
-// AnimationAtlas tmp;
-
 uint32 VideoMemoryManager::loadAtlas(AnimationAtlas atlas) {
-
-    m = new MemoryTiles(2,6, &atlas);
+    MemoryTiles* m = new MemoryTiles(2,6, &atlas);
+    // TODO: fix this part to be dynamic
+    this->objectTileList.push_back(m);
     return 1;
 }
 
@@ -24,5 +20,5 @@ uint32 VideoMemoryManager::loadPalet(AnimationAtlas atlas) {
 }
 
 MemoryTiles& VideoMemoryManager::getAtlas(uint32 atlasId) {
-    return *m;
+    return *(this->objectTileList.front());
 }

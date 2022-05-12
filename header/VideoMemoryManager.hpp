@@ -2,19 +2,19 @@
 #define VIDEOMEMORYMANAGER__HPP
 
 #include "type.h"
+#include <list>
 
 #include "AnimationAtlas.hpp"
-#include "LinkedList.hpp"
 #include "MemoryTiles.hpp"
 #include "MemoryPalet.hpp"
 
 class VideoMemoryManager {
     // Attributes
     private :
-        LinkedList<MemoryBlock> objectTileList;
-        LinkedList<MemoryBlock> backgroundTileList;
-        LinkedList<MemoryBlock> objectPaletList;
-        LinkedList<MemoryBlock> backgroundPaletList;
+        std::list<MemoryTiles*> objectTileList;
+        std::list<MemoryTiles*> backgroundTileList;
+        std::list<MemoryPalet*> objectPaletList;
+        std::list<MemoryPalet*> backgroundPaletList;
     // Operations
     public :
         uint32 loadPalet (AnimationAtlas atlas);

@@ -42,3 +42,8 @@ void Sprite::move(uint16 x, uint16 y) {
 void Sprite::nextFrame() {
     this->asset->nextFrame();
 }
+
+// Get the object Attribute Should only be used by Object Manager
+volatile obj_attrs* Sprite::getAtts() {
+    return this->obj_att;
+}

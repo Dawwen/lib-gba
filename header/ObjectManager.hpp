@@ -8,9 +8,16 @@
 #include "Sprite.hpp"
 
 class ObjectManager {
-    // Operations
+    // Attributes
     public :
+        uint32 objectsMap [4];
+    // Operations
+        ObjectManager ();
         Sprite* createSprite (MemoryTiles& data);
+    private :
+        uint32 findAvalableObject ();
+    public :
+        void removeSprite (Sprite* sprite);
 };
 
 #endif

@@ -20,6 +20,7 @@ class Sprite {
         void setY (uint16 x);
         void move (uint16 x, uint16 y);
         void nextFrame ();
+        volatile obj_attrs * getAtts ();
 };
 
 #endif

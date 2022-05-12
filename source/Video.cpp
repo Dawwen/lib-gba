@@ -29,4 +29,6 @@ void Video::waitVBlank() {
 	while (*scanline_counter < 160);
 }
 
-
+void Video::removeSprite(Sprite *sprite) {
+	this->objectManager.removeSprite(sprite);
+}

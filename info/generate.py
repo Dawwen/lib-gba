@@ -52,6 +52,8 @@ if __name__ == "__main__":
 
 	adds_line_after_tag("ObjectManager.hpp", '^#include "type.h"$', '#include "object.h"')
 	adds_line_after_tag("Sprite.hpp", '^#include "type.h"$', '#include "object.h"')
+	
+	adds_line_after_tag("VideoMemoryManager.hpp", '^#include "type.h"$', '#include <list>')
 
 	# replace the generated array with my implementation
 	replace_line("AnimationAtlas.hpp", '#include "array.hpp"', '#include "array.h"')

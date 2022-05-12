@@ -1,6 +1,6 @@
 #include "animation_resource.h"
 
- static const struct s_animation_resource foo  __attribute__((__used__, __section__("info"))) = {
+ static const struct s_animation_resource foo  __attribute__((__used__, __section__("sprite"))) = {
 	.X = 32,
 	.Y = 32,
 	.atlas_length = 45,

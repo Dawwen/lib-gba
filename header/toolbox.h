@@ -12,4 +12,6 @@
 #define REG_DISPLAY			(*((volatile uint32 *)(MEM_IO)))
 #define REG_DISPLAY_VCOUNT	(*((volatile uint32 *)(MEM_IO + 0x0006)))
 
+#define REG_KEY_INPUT		(*((volatile uint32 *)(MEM_IO + 0x0130)))
+
 #endif
