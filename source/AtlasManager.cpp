@@ -6,12 +6,9 @@ extern void*  __stop_sprite[];
 
 AtlasManager::AtlasManager() {
     animation_resource* offset= (animation_resource*)__start_sprite;
-    AnimationAtlas *a =  new AnimationAtlas(offset);
-    
+    AnimationAtlas* a =  new AnimationAtlas(offset);
 
-    this->arrayOfAtlas.length = 1;
-    // this->arrayOfAtlas.data = (AnimationAtlas*) malloc(sizeof(AnimationAtlas&) * 1);
-    this->arrayOfAtlas.data = a;
+    this->atlasList.push_back(a);
 }
 
 uint32 AtlasManager::loadAtlasInMemory(uint32 resourceId) {
@@ -21,9 +18,16 @@ uint32 AtlasManager::loadAtlasInMemory(uint32 resourceId) {
     return 1;
 }
 
-AnimationAtlas AtlasManager::getAnimationAtlas(uint32 id) {
+AnimationAtlas* AtlasManager::getAnimationAtlas(uint32 id) {
     // TODO this function properly
-    return *(this->arrayOfAtlas.data);
+    for(AnimationAtlas* atlas : this->atlasList)
+    {
+        if (atlas->getId() == id) {
+            return atlas;
+        }
+    }
+    // this->atlasList.front()
+    return 0x00;
 }
 
 MemoryTiles& AtlasManager::getAtlasInMemory(uint32 resourceId) {

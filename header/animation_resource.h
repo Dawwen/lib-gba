@@ -4,6 +4,7 @@
 #include "type.h"
 
 struct s_animation_resource {
+    uint32 id;
     int32 X;
     int32 Y;
     int32 atlas_length;

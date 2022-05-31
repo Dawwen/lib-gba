@@ -1,6 +1,7 @@
 #include "AnimationAtlas.hpp"
 
 AnimationAtlas::AnimationAtlas(animation_resource* data) {
+    this->id = data->id;
     this->width = data->X;
     this->height = data->Y;
 
@@ -10,9 +11,12 @@ AnimationAtlas::AnimationAtlas(animation_resource* data) {
     
     this->atlas.data = data->data;
     this->palet.data = data->data + (data->X * data->Y * data-> atlas_length / 4);
-    this->animation.data = data->data + (data->X * data->Y * data-> atlas_length / 4) + data->palet_length;
+    this->animation.data = data->data + ((data->X * data->Y * data-> atlas_length) / 4) + data->palet_length;
 }
 
+uint32 AnimationAtlas::getId() {
+    return this->id;
+}
 
 uint32 AnimationAtlas::getHeight() {
     return this->height;
@@ -27,7 +31,11 @@ array<uint16> AnimationAtlas::getPalet() {
 }
 
 array<uint16> AnimationAtlas::getSpriteFrame(uint32 index) {
-    int frame = this->animation.data[index % this->animation.length];
+    int animation_index = index % this->animation.length;
+    int frame = this->animation.data[animation_index];
+
+    // int frame = this->animation.data[index % this->animation.length];
+    // int frame = index % this->atlas.length;
     array<uint16> output;
     output.length = this->width * this->height;
     output.data = &(this->atlas.data[frame * this->width * this->height / 4]);

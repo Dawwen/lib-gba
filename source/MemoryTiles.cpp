@@ -11,6 +11,11 @@ void MemoryTiles::nextFrame() {
     this->updateMemory();
 }
 
+void MemoryTiles::setFrame(uint32 frame) {
+    this->animationFrame = frame;
+    this->updateMemory();
+}
+
 void MemoryTiles::updateMemory() {
     uint16 *start_tile_mem   = (uint16 *)tile_mem[4][0];
 

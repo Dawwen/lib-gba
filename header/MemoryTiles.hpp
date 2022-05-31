@@ -14,6 +14,8 @@ class MemoryTiles : public MemoryBlock {
         void nextFrame ();
     private :
         void updateMemory ();
+    public :
+        void setFrame (uint32 frame);
 };
 
 #endif

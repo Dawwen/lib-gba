@@ -21,6 +21,7 @@ class Sprite {
         void move (uint16 x, uint16 y);
         void nextFrame ();
         volatile obj_attrs * getAtts ();
+        void setFrame (uint32 frame);
 };
 
 #endif

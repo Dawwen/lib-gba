@@ -2,11 +2,11 @@
 #define ATLASMANAGER__HPP
 
 #include "type.h"
+#include <list>
 #include "animation_resource.h"
 
 #include "VideoMemoryManager.hpp"
 #include "AnimationAtlas.hpp"
-#include "array.h"
 
 class AtlasManager {
     // Attributes
@@ -14,13 +14,13 @@ class AtlasManager {
         animation_resource* resource_data;
         /// Number of sprite to load should not be necessary
         uint32 spritesNumber;
-        array<AnimationAtlas> arrayOfAtlas;
+        std::list<AnimationAtlas*> atlasList;
         VideoMemoryManager videoMemoryManager;
     // Operations
     public :
         AtlasManager ();
     private :
-        AnimationAtlas getAnimationAtlas (uint32 id);
+        AnimationAtlas* getAnimationAtlas (uint32 id);
     public :
         uint32 loadAtlasInMemory (uint32 resourceId);
         MemoryTiles& getAtlasInMemory (uint32 resourceId);

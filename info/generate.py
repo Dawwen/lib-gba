@@ -57,4 +57,5 @@ if __name__ == "__main__":
 
 	# replace the generated array with my implementation
 	replace_line("AnimationAtlas.hpp", '#include "array.hpp"', '#include "array.h"')
-	replace_line("AtlasManager.hpp", '#include "array.hpp"', '#include "array.h"')
+
+	adds_line_after_tag("AtlasManager.hpp", '#include "type.h"', '#include <list>')

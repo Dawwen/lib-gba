@@ -4,7 +4,6 @@
 #include "type.h"
 #include <list>
 
-#include "AnimationAtlas.hpp"
 #include "MemoryTiles.hpp"
 #include "MemoryPalet.hpp"
 
@@ -17,8 +16,8 @@ class VideoMemoryManager {
         std::list<MemoryPalet*> backgroundPaletList;
     // Operations
     public :
-        uint32 loadPalet (AnimationAtlas atlas);
-        uint32 loadAtlas (AnimationAtlas atlas);
+        uint32 loadPalet (AnimationAtlas* atlas);
+        uint32 loadAtlas (AnimationAtlas* atlas);
         MemoryTiles& getAtlas (uint32 atlasId);
 };
 

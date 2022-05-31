@@ -43,6 +43,10 @@ void Sprite::nextFrame() {
     this->asset->nextFrame();
 }
 
+void Sprite::setFrame(uint32 frame) {
+    this->asset->setFrame(frame);
+}
+
 // Get the object Attribute Should only be used by Object Manager
 volatile obj_attrs* Sprite::getAtts() {
     return this->obj_att;
