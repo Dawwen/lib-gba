@@ -4,6 +4,7 @@
 #include "input.h"
 
 #define SUBARU_RESOURCE 1
+#define DITTO_RESOURCE 2
 
 #define DUCK_NUM 2
 
@@ -11,20 +12,11 @@ int main() {
 	Video video;
 
 	video.init();
-	video.loadAtlasInMemory(SUBARU_RESOURCE);
+	video.loadAtlasInMemory(DITTO_RESOURCE);
+	// video.loadAtlasInMemory(SUBARU_RESOURCE);
 	
-	Sprite *s = video.createSprite(SUBARU_RESOURCE);
-	// Sprite *sprites[128];
-	// for (uint32 i = 0; i < 127; i++)
-	// {
-	// 	sprites[i] = video.createSprite(SUBARU_RESOURCE);
-	// 	sprites[i]->setX((i*16) % 208);
-	// 	sprites[i]->setY(((i * 16) / 208) * 16);
-	// }
-	// video.removeSprite(sprites[3]);
-	// Sprite *sa = video.createSprite(SUBARU_RESOURCE);
-	// sa->setY(100);
-
+	Sprite *s = video.createSprite(DITTO_RESOURCE);
+	Sprite *s2 = video.createSprite(DITTO_RESOURCE);
 
 	uint32 dx, dy, d = 0;
 	// uint16 x,y;
@@ -49,8 +41,8 @@ int main() {
 		
 
 		if (d % 5 == 0) {
-			s->setFrame(d/5);
-			// s->nextFrame();
+			// s->setFrame(d/5);
+			s->nextFrame();
 			// d = 0;
 		}
 		video.waitVBlank();

@@ -4,11 +4,18 @@
 extern void*  __start_sprite[];
 extern void*  __stop_sprite[];
 
+animation_resource* nextResource(animation_resource* data) {
+    return (animation_resource*)(data->data + ((data->X * data->Y * data-> atlas_length) / 4) + data->palet_length + data->ani_length);
+}
+
+
 AtlasManager::AtlasManager() {
     animation_resource* offset= (animation_resource*)__start_sprite;
-    AnimationAtlas* a =  new AnimationAtlas(offset);
-
-    this->atlasList.push_back(a);
+    while (offset < (animation_resource*)__stop_sprite) {
+        AnimationAtlas* a =  new AnimationAtlas(offset);
+        this->atlasList.push_back(a);
+        offset = nextResource(offset);
+    }
 }
 
 uint32 AtlasManager::loadAtlasInMemory(uint32 resourceId) {
@@ -19,14 +26,12 @@ uint32 AtlasManager::loadAtlasInMemory(uint32 resourceId) {
 }
 
 AnimationAtlas* AtlasManager::getAnimationAtlas(uint32 id) {
-    // TODO this function properly
     for(AnimationAtlas* atlas : this->atlasList)
     {
         if (atlas->getId() == id) {
             return atlas;
         }
     }
-    // this->atlasList.front()
     return 0x00;
 }
 
