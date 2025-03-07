@@ -1,14 +1,14 @@
 
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef OBJECT_TOOLBOX_H
+#define OBJECT_TOOLBOX_H
 
-#include "type.h"
+#include "types.h"
 
 typedef struct obj_attrs {
-	uint16 attr0;
-	uint16 attr1;
-	uint16 attr2;
-	uint16 pad;
+	u16 attr0;
+	u16 attr1;
+	u16 attr2;
+	u16 pad;
 } __attribute__((packed, aligned(4))) obj_attrs;
 
 
@@ -16,12 +16,14 @@ typedef struct obj_attrs {
 #define MEM_OAM  0x07000000
 #define MEM_PAL  0x05000000
 
-typedef uint32    tile_4bpp[8];
+typedef u32    tile_4bpp[8];
 typedef tile_4bpp tile_block[512];
+typedef u16 screen_block[512];
 
 #define oam_mem            ((volatile obj_attrs *)MEM_OAM)
 #define tile_mem           ((volatile tile_block *)MEM_VRAM)
-#define object_palet_mem ((volatile uint16 *)(MEM_PAL + 0x200))
+#define object_palet_mem ((volatile u16 *)(MEM_PAL + 0x200))
+#define bgm_palet_mem ((volatile u16 *)(MEM_PAL))
 
 #define OBJECT_ATTR0_Y_MASK		0x00FF
 #define	OBJECT_ATTR0_SHAPE_MASK	0xC000
@@ -59,13 +61,13 @@ static inline void set_object_position_y(volatile obj_attrs *object, int y)
 }
 
 // Set the position of an object to specified x and y coordinates
-static inline uint16 get_object_position_x(volatile obj_attrs *object)
+static inline u16 get_object_position_x(volatile obj_attrs *object)
 {
 	return (object->attr1 & OBJECT_ATTR1_X_MASK);
 }
 
 // Set the position of an object to specified x and y coordinates
-static inline uint16 get_object_position_y(volatile obj_attrs *object)
+static inline u16 get_object_position_y(volatile obj_attrs *object)
 {
 	return (object->attr0 & OBJECT_ATTR0_Y_MASK);
 }

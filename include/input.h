@@ -1,11 +1,11 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include "type.h"
+#include "types.h"
 #include "toolbox.h"
 
 #define INLINE static inline
-extern uint16 __key_curr, __key_prev;
+extern u16 __key_curr, __key_prev;
 
 #define KEY_A        0x0001
 #define KEY_B        0x0002
@@ -27,12 +27,12 @@ INLINE void key_poll()
 	__key_curr= ~REG_KEY_INPUT & KEY_MASK;
 }
 
-INLINE uint32 key_hit(uint32 key)
+INLINE u32 key_hit(u32 key)
 {
 	return ( __key_curr &~ __key_prev) & key;
 }
 
-INLINE uint32 key_pushed(uint32 key)
+INLINE u32 key_pushed(u32 key)
 {
 	return ( __key_curr & key);
 }

@@ -20,7 +20,7 @@ TARGET		:=	$(shell basename $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source #source/resource
 DATA		:=
-INCLUDES	:=	header
+INCLUDES	:=	include
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -36,7 +36,7 @@ CFLAGS	:=	-g -Wall -O3\
 
 CFLAGS	+=	$(INCLUDE)
 
-CXXFLAGS = $(CFLAGS)
+CXXFLAGS = $(CFLAGS) -std=c++20
 
 ASFLAGS	:=	$(ARCH)
 LDFLAGS	=	-g $(ARCH) -Wl,-Map,$(notdir $@).map
