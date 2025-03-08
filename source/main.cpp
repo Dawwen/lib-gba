@@ -12,7 +12,7 @@ int main(int argc, char const *argv[])
 {
     Demo demo;
     demo.init();
-    
+
     // //For BGM
     // video::getVideoManager()->setupBGMPalet4bpp(0, palet, resource->palet_length);
 
@@ -55,9 +55,6 @@ int main(int argc, char const *argv[])
     // unpackFont(memoryBuffer_bg.ptr, 8);
 
     u32 i = 0;
-    LOG_WARNING("Object ptr 0x%x", object);
-    LOG_WARNING("stack ptr 0x%x", &i);
-    LOG_WARNING("rom ptr 0x%x", resource);
     while (true)
     {
         demo.process(i);
