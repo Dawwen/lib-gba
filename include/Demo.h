@@ -18,10 +18,13 @@ class Demo
 {
 private:
     sprite_resource subaru_resource;
+    sprite_resource redhood_resource;
     sprite_resource direction_resource;
     sprite_resource a_resource;
     sprite_resource b_resource;
+
     Object* subaru_object;
+    Object* redhood_object;
     Object* direction_object;
     Object* a_object;
     Object* b_object;
