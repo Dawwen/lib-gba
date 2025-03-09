@@ -14,6 +14,14 @@ struct sprite_resource
     u32 palet_id;
 };
 
+struct menu
+{
+    u32 x;
+    u32 y;
+    u32 index;
+    u32 size;
+};
+
 class Demo
 {
 private:
@@ -28,6 +36,11 @@ private:
     Object* direction_object;
     Object* a_object;
     Object* b_object;
+
+    video_memory_proxy memoryBuffer_map;
+    video_memory_proxy memoryBuffer_bg;
+
+    menu comm_menu;
 
 public:
     Demo(/* args */);
