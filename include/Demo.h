@@ -20,6 +20,7 @@ struct menu
     u32 y;
     u32 index;
     u32 size;
+    bool selected;
 };
 
 class Demo

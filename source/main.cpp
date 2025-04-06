@@ -2,6 +2,7 @@
 #include "video.h"
 #include "input.h"
 #include "font.h"
+#include "comm.h"
 
 
 #include "Demo.h"
@@ -17,7 +18,7 @@ int main(int argc, char const *argv[])
     while (true)
     {
         demo.process(i);
-        video::waitVBlank();
+        waitVBlank();
         i++;
     }
     LOG_WARNING("Program finished");

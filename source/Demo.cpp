@@ -1,5 +1,9 @@
 #include "Demo.h"
 
+// #include "CommPort.h"
+#include "comm.h"
+#include "circular_buffer.h"
+
 const u32 DIRECTION_ID = 0;
 const u32 SUBARU_ID = 1;
 const u32 A_ID = 2;
@@ -61,6 +65,81 @@ void draw_comm_menu(u16* map_adress)
     write_in_map(map_adress, 1, 4, "RESET", 5);
 }
 
+void draw_pin_menu(u16* map_adress)
+{
+    // Pin
+    write_in_map(map_adress, 13, 0, "Pin IN/OUT State:", 17);
+    
+    write_in_map(map_adress, 14, 1, "SC", 2);
+    write_in_map(map_adress, 20, 1, "IN", 2);
+    write_in_map(map_adress, 26, 1, "ON", 2);
+
+    write_in_map(map_adress, 14, 2, "SD", 2);
+    write_in_map(map_adress, 20, 2, "IN", 2);
+    write_in_map(map_adress, 26, 2, "OFF", 3);
+    
+    // Should not be an output
+    write_in_map(map_adress, 14, 3, "SI", 2);
+    write_in_map(map_adress, 20, 3, "OUT", 3);
+    write_in_map(map_adress, 26, 3, "ON", 2);
+    
+    write_in_map(map_adress, 14, 4, "SO", 2);
+    write_in_map(map_adress, 20, 4, "OUT", 3);
+    write_in_map(map_adress, 26, 4, "OFF", 3);
+}
+
+void draw_uart_menu(u16* map_adress)
+{
+    // UART
+    write_in_map(map_adress, 13, 0, "Choose options", 14);
+
+    write_in_map(map_adress, 11, 2, "Baudrate:", 10);
+    write_in_map(map_adress, 23, 2, "115 200", 7);
+
+    write_in_map(map_adress, 11, 3, "Parity:", 7);
+    write_in_map(map_adress, 27, 3, "OFF", 3);
+
+    write_in_map(map_adress, 11, 4, "Blind_send:", 11);
+    write_in_map(map_adress, 28, 4, "ON", 2);
+    
+    write_in_map(map_adress, 11, 5, "Msg:", 4);
+    write_in_map(map_adress, 27, 5, "Set", 3);
+    write_in_map(map_adress, 9, 10, "Hello World!", 12);
+    write_in_map(map_adress, 9, 9, "^", 1);
+    write_in_map(map_adress, 9, 11, "^", 1);
+}
+
+void draw_spi_menu(u16* map_adress)
+{
+    // SPI
+    write_in_map(map_adress, 13, 0, "Choose options", 14);
+
+    write_in_map(map_adress, 11, 2, "Mode:", 5);
+    write_in_map(map_adress, 23, 2, "Master", 6);
+
+    write_in_map(map_adress, 11, 3, "Speed:", 6);
+    write_in_map(map_adress, 23, 3, "256 KHz", 7);
+    // write_in_map(map_adress, 23, 3, "2 MHz", 5);
+
+    write_in_map(map_adress, 11, 4, "Depth:", 6);
+    write_in_map(map_adress, 23, 4, "8 bits", 6);
+    // write_in_map(map_adress, 23, 4, "32 bits", 7);
+
+    write_in_map(map_adress, 11, 5, "SO:", 3);
+    write_in_map(map_adress, 23, 5, "High", 4);
+
+    write_in_map(map_adress, 11, 6, "Msg:", 4);
+    write_in_map(map_adress, 23, 6, "Set", 3);
+
+    write_in_map(map_adress, 4, 10, "0x00", 4);
+    write_in_map(map_adress, 10, 10, "0x00", 4);
+    write_in_map(map_adress, 16, 10, "0x00", 4);
+    write_in_map(map_adress, 22, 10, "0x00", 4);
+
+    write_in_map(map_adress, 5, 9, "^", 1);
+    write_in_map(map_adress, 6, 9, "^", 1);
+
+}
 
 Demo::Demo(/* args */)
 {
@@ -76,6 +155,9 @@ void Demo::init()
     mgba_open();
     LOG_WARNING("Program starting");
     video::setupDefaultMode0();
+
+    // CommPort::setPinMode();
+	setCommunicationToUART();
 
     //For Object
     setupResource(subaru_resource, SUBARU_ID, 0);
@@ -115,77 +197,11 @@ void Demo::init()
     unpackFont(memoryBuffer_bg.ptr, 1);
 
     clear_map(memoryBuffer_map.ptr);
-
-    draw_comm_menu(memoryBuffer_map.ptr);
-
-    // // Pin
-    // write_in_map(memoryBuffer_map.ptr, 13, 0, "Pin IN/OUT State:", 17);
     
-    // write_in_map(memoryBuffer_map.ptr, 14, 1, "SC", 2);
-    // write_in_map(memoryBuffer_map.ptr, 20, 1, "IN", 2);
-    // write_in_map(memoryBuffer_map.ptr, 26, 1, "ON", 2);
+    write_in_map(memoryBuffer_map.ptr, 1,1, "A to send Hello World!", 22);
+    write_in_map(memoryBuffer_map.ptr, 1,3, "B to clear", 10);
 
-    // write_in_map(memoryBuffer_map.ptr, 14, 2, "SD", 2);
-    // write_in_map(memoryBuffer_map.ptr, 20, 2, "IN", 2);
-    // write_in_map(memoryBuffer_map.ptr, 26, 2, "OFF", 3);
-    
-    // // Should not be an output
-    // write_in_map(memoryBuffer_map.ptr, 14, 3, "SI", 2);
-    // write_in_map(memoryBuffer_map.ptr, 20, 3, "OUT", 3);
-    // write_in_map(memoryBuffer_map.ptr, 26, 3, "ON", 2);
-    
-    // write_in_map(memoryBuffer_map.ptr, 14, 4, "SO", 2);
-    // write_in_map(memoryBuffer_map.ptr, 20, 4, "OUT", 3);
-    // write_in_map(memoryBuffer_map.ptr, 26, 4, "OFF", 3);
-
-    // // UART
-    // write_in_map(memoryBuffer_map.ptr, 13, 0, "Choose options", 14);
-
-    // write_in_map(memoryBuffer_map.ptr, 11, 2, "Baudrate:", 10);
-    // write_in_map(memoryBuffer_map.ptr, 23, 2, "115 200", 7);
-
-    // write_in_map(memoryBuffer_map.ptr, 11, 3, "Parity:", 7);
-    // write_in_map(memoryBuffer_map.ptr, 27, 3, "OFF", 3);
-
-    // write_in_map(memoryBuffer_map.ptr, 11, 4, "Blind_send:", 11);
-    // write_in_map(memoryBuffer_map.ptr, 28, 4, "ON", 2);
-    
-    // write_in_map(memoryBuffer_map.ptr, 11, 5, "Msg:", 4);
-    // write_in_map(memoryBuffer_map.ptr, 27, 5, "Set", 3);
-    // write_in_map(memoryBuffer_map.ptr, 9, 10, "Hello World!", 12);
-    // write_in_map(memoryBuffer_map.ptr, 9, 9, "^", 1);
-    // write_in_map(memoryBuffer_map.ptr, 9, 11, "^", 1);
-
-    // // SPI
-    // write_in_map(memoryBuffer_map.ptr, 13, 0, "Choose options", 14);
-
-    // write_in_map(memoryBuffer_map.ptr, 11, 2, "Mode:", 5);
-    // write_in_map(memoryBuffer_map.ptr, 23, 2, "Master", 6);
-
-    // write_in_map(memoryBuffer_map.ptr, 11, 3, "Speed:", 6);
-    // write_in_map(memoryBuffer_map.ptr, 23, 3, "256 KHz", 7);
-    // // write_in_map(memoryBuffer_map.ptr, 23, 3, "2 MHz", 5);
-
-    // write_in_map(memoryBuffer_map.ptr, 11, 4, "Depth:", 6);
-    // write_in_map(memoryBuffer_map.ptr, 23, 4, "8 bits", 6);
-    // // write_in_map(memoryBuffer_map.ptr, 23, 4, "32 bits", 7);
-
-    // write_in_map(memoryBuffer_map.ptr, 11, 5, "SO:", 3);
-    // write_in_map(memoryBuffer_map.ptr, 23, 5, "High", 4);
-
-    // write_in_map(memoryBuffer_map.ptr, 11, 6, "Msg:", 4);
-    // write_in_map(memoryBuffer_map.ptr, 23, 6, "Set", 3);
-
-    // write_in_map(memoryBuffer_map.ptr, 4, 10, "0x00", 4);
-    // write_in_map(memoryBuffer_map.ptr, 10, 10, "0x00", 4);
-    // write_in_map(memoryBuffer_map.ptr, 16, 10, "0x00", 4);
-    // write_in_map(memoryBuffer_map.ptr, 22, 10, "0x00", 4);
-
-    // write_in_map(memoryBuffer_map.ptr, 5, 9, "^", 1);
-    // write_in_map(memoryBuffer_map.ptr, 6, 9, "^", 1);
-    
-
-    comm_menu = {0, 1, 0, 3};
+    comm_menu = {0, 1, 0, 3, false};
 }
 
 void Demo::process(u32 i)
@@ -204,32 +220,31 @@ void Demo::process(u32 i)
     if      (key_pushed(KEY_A))    { a_state = 1; }
     if      (key_pushed(KEY_B))    { b_state = 1; }
 
-    if (true)
+    const char * data = "Hello World!\n";
+    if (key_hit(KEY_A))
+    {
+        snd_uart_ret(data, 13);
+    }
+
+    if (key_hit(KEY_B))
     {
         clear_map(memoryBuffer_map.ptr);
-        draw_comm_menu(memoryBuffer_map.ptr);
-    
-        if (key_hit(KEY_UP) && comm_menu.index != 0)
+        write_in_map(memoryBuffer_map.ptr, 1,1, "A to send Hello World!", 22);
+        write_in_map(memoryBuffer_map.ptr, 1,3, "B to clear", 10);
+    }
+
+    u32 size;
+    if (size = circ_bytes_available(&g_uart_rcv_buffer))
+    {
+        for (u32 i = 0; i < size; i++)
         {
-            comm_menu.index--;
-        }
-        else if (key_hit(KEY_DOWN) && comm_menu.index < comm_menu.size)
-        {
-            comm_menu.index++;
+            char c;
+            read_circ_char(&g_uart_rcv_buffer, &c);
+            write_in_map(memoryBuffer_map.ptr, 2 + i, 5, &c, 1);
         }
         
-        if (key_pushed(KEY_A))
-        {
-            write_in_map(memoryBuffer_map.ptr, comm_menu.x, comm_menu.y + comm_menu.index, "*", 1);
-        }
-        else
-        {
-            write_in_map(memoryBuffer_map.ptr, comm_menu.x, comm_menu.y + comm_menu.index, ">", 1);
-        }
-
     }
     
-
 
     update_sprite_vram(subaru_resource, i / 5);
     update_sprite_vram(direction_resource, direction_state);
