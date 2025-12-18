@@ -101,7 +101,7 @@ void handle_console_uart_ret() {
   //   // do something
   // }
 }
-ARM_CODE
+// ARM_CODE
 // void close_uart() {
 //   // disable SIO
 //   REG_SIOCNT = 0;
