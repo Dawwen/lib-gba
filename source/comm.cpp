@@ -30,17 +30,17 @@ void init_uart(u16 uart) {
 }
 
 
-void setCommunicationToUART()
-{
-    // Set to UART mode
-    init_circ_buff(&g_uart_rcv_buffer, g_rcv_buffer, UART_RCV_BUFFER_SIZE);
-    init_uart(SIO_BAUD_115200);
+// void setCommunicationToUART()
+// {
+//     // Set to UART mode
+//     init_circ_buff(&g_uart_rcv_buffer, g_rcv_buffer, UART_RCV_BUFFER_SIZE);
+//     init_uart(SIO_BAUD_115200);
 
-    // set irqs
-    irq_init(NULL);
-    irq_add(II_SERIAL, handle_console_uart_ret);
-    irq_add(II_VBLANK, NULL);
-}
+//     // set irqs
+//     irq_init(NULL);
+//     irq_add(II_SERIAL, handle_console_uart_ret);
+//     irq_add(II_VBLANK, NULL);
+// }
 
 void snd_uart_ret(const char out[], int len) {
   for(int i = 0; i < len; i++) {
@@ -101,8 +101,30 @@ void handle_console_uart_ret() {
   //   // do something
   // }
 }
+ARM_CODE
+// void close_uart() {
+//   // disable SIO
+//   REG_SIOCNT = 0;
+// }
 
-void waitVBlank() {
-  VBlankIntrWait();
-}
+// Small helper to read the SPI/SIO data port. We want this function to be
+// generated in ARM (32-bit) mode even if the project is compiled with
+// -mthumb globally. Use the "target" attribute so the compiler emits ARM
+// instructions for this function (GCC/Clang support function multiversioning).
+// It simply waits for the receive flag to indicate data is ready and returns
+// the 8-bit data register.
+// extern "C" unsigned char read_spi_arm(void) __attribute__((target("arm")));
+// extern "C" unsigned char read_spi_arm(void) {
+//   // Wait until we have a full byte (recv data flag will go to 0 when ready)
+//   while (REG_SIOCNT & SIO_RECV_DATA) {
+//     ;
+//   }
+
+//   return (unsigned char)REG_SIODATA8;
+// }
+
+
+// void waitVBlank() {
+//   VBlankIntrWait();
+// }
 

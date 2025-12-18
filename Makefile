@@ -16,11 +16,16 @@ include $(DEVKITARM)/gba_rules
 # DATA is a list of directories containing data files
 # INCLUDES is a list of directories containing header files
 #---------------------------------------------------------------------------------
-TARGET		:=	$(shell basename $(CURDIR))_mb
+TARGET		:=	$(shell basename $(CURDIR))
 BUILD		:=	build
 SOURCES		:=	source #source/resource
 DATA		:=
 INCLUDES	:=	include
+
+#---------------------------------------------------------------------------------
+# Exclude main.cpp from the library build
+#---------------------------------------------------------------------------------
+EXCLUDE_FILES	:=	main.cpp
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -78,6 +83,10 @@ CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
 SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
 
+# Exclude specific files from the build
+CFILES		:=	$(filter-out main.c,$(CFILES))
+CPPFILES	:=	$(filter-out main.cpp,$(CPPFILES))
+
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
 #---------------------------------------------------------------------------------
@@ -117,7 +126,7 @@ all	: $(BUILD)
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).gba
+	@rm -fr $(BUILD) $(TARGET).a
 
 #---------------------------------------------------------------------------------
 re:
@@ -132,9 +141,10 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-$(OUTPUT).gba	:	$(OUTPUT).elf
-
-$(OUTPUT).elf	:	$(OFILES)
+$(OUTPUT).a	:	$(OFILES)
+	@echo Linking static library $(OUTPUT).a
+	@$(AR) rcs $(OUTPUT).a $(OFILES)
+	@echo Built $(OUTPUT).a
 
 %.o	:	%.pcx
 	@echo $(notdir $<)

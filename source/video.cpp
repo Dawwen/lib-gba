@@ -36,12 +36,19 @@ getVideoManager()
 }
 
 ResourceManager*
+createResourceManager(void* startData, void* endData)
+{
+	resourceManagerCreated = new ResourceManager(startData, endData);
+	return resourceManagerCreated;
+}
+
+ResourceManager*
 getResourceManager()
 {
-	if (!resourceManagerCreated)
-	{
-		resourceManagerCreated = new ResourceManager();
-	}
+	// if (!resourceManagerCreated)
+	// {
+	// 	resourceManagerCreated = new ResourceManager();
+	// }
 	return resourceManagerCreated;
 }
 

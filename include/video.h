@@ -11,6 +11,7 @@ void setupDefaultMode0();
 void waitVBlank();
 
 VideoManager*       getVideoManager();
+ResourceManager*    createResourceManager(void* startData, void* endData);
 ResourceManager*    getResourceManager();
 
 }

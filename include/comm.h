@@ -31,10 +31,12 @@ extern char g_rcv_buffer[UART_RCV_BUFFER_SIZE];
 extern struct circ_buff g_uart_rcv_buffer;
 
 void init_uart(unsigned short uart);
-void setCommunicationToUART();
+// void setCommunicationToUART();
 void snd_uart_ret(const char out[], int len);
 int rcv_uart_ret(char in[]);
 void handle_console_uart_ret();
-void waitVBlank();
+// Read one byte from the SPI/SIO data port using ARM instruction set
+unsigned char read_spi_arm(void);
+// void waitVBlank();//
 
 #endif

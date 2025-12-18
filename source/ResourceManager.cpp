@@ -2,8 +2,8 @@
 
 #include "log.h"
 
-extern void*  __start_animation_resource[];
-extern void*  __stop_animation_resource[];
+// extern void*  __start_animation_resource[];
+// extern void*  __stop_animation_resource[];
 
 animation_resource* nextResource(const animation_resource* data) {
     void* ptr = (void*)(data->data + ((data->width * data->height * data-> atlas_length) / 4) + data->palet_length + data->ani_length);
@@ -17,8 +17,8 @@ animation_resource* nextResource(const animation_resource* data) {
 
 const animation_resource*
 ResourceManager::getAnimationResource(u32 id) {
-    const animation_resource* ressource= (animation_resource*)__start_animation_resource;
-    while (ressource < (animation_resource*)__stop_animation_resource) {
+    const animation_resource* ressource= (animation_resource*)mStartResourceData;
+    while (ressource < (animation_resource*)mEndResourceData) {
         if (ressource->id == id)
         {
             LOG_WARNING("Found ressource");
@@ -49,7 +49,8 @@ const u16* ResourceManager::getFrameFromIndex(const animation_resource* resource
     return (u16*)(resource->data + (resource->width * resource->height * atlas_index / 4));
 }
 
-ResourceManager::ResourceManager(/* args */)
+ResourceManager::ResourceManager(void* startData, void* endData)
+    : mStartResourceData(startData), mEndResourceData(endData)
 {
 }
 

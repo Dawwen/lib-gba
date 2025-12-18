@@ -7,9 +7,11 @@
 class ResourceManager
 {
 private:
-    /* data */
+    void*  mStartResourceData;
+    void*  mEndResourceData;
+
 public:
-    ResourceManager(/* args */);
+    ResourceManager(void* startData, void* endData);
     ~ResourceManager();
 
     const animation_resource* getAnimationResource(u32 id);
