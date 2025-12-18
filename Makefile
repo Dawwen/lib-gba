@@ -16,7 +16,7 @@ include $(DEVKITARM)/gba_rules
 # DATA is a list of directories containing data files
 # INCLUDES is a list of directories containing header files
 #---------------------------------------------------------------------------------
-TARGET		:=	$(shell basename $(CURDIR))
+TARGET		:=	libgraph
 BUILD		:=	build
 SOURCES		:=	source #source/resource
 DATA		:=
@@ -69,7 +69,7 @@ LIBDIRS	:=	$(LIBGBA) $(DEVKITARM)/../libtonc
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 #---------------------------------------------------------------------------------
 
-export OUTPUT	:=	$(CURDIR)/$(TARGET)
+export OUTPUT	:=	$(CURDIR)/lib/$(TARGET)
 export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
 					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
 
