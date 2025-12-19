@@ -29,6 +29,13 @@ void init_uart(u16 uart) {
   // With any luck, we should now be able to talk to a PC.
 }
 
+void setInterupt()
+{
+    // set irqs
+    irq_init(NULL);
+    irq_add(II_SERIAL, handle_console_uart_ret);
+    irq_add(II_VBLANK, NULL);
+}
 
 // void setCommunicationToUART()
 // {
@@ -124,7 +131,7 @@ void handle_console_uart_ret() {
 // }
 
 
-// void waitVBlank() {
-//   VBlankIntrWait();
-// }
+void waitVBlank() {
+  VBlankIntrWait();
+}
 

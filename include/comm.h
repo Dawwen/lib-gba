@@ -37,6 +37,7 @@ int rcv_uart_ret(char in[]);
 void handle_console_uart_ret();
 // Read one byte from the SPI/SIO data port using ARM instruction set
 unsigned char read_spi_arm(void);
-// void waitVBlank();//
+void setInterupt();
+void waitVBlank();//
 
 #endif
