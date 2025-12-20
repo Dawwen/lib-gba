@@ -32,8 +32,6 @@ VideoManager::~VideoManager()
 bool
 VideoManager::setupObjectPalet4bpp(u32 palet_index, const u16* palet, u32 palet_length)
 {
-    LOG_WARNING("Setuping palet %d with %d value", palet_index, palet_length);
-
     for (u32 k = 0; k < palet_length; k++)
     {
         object_palet_mem[palet_index * 16 + k] = palet[k];
@@ -67,13 +65,13 @@ const video_memory_proxy VideoManager::getVideoMemoryTile(MemoryType type, u32 s
     // In case of 4bpp
     auto memoryBlock = this->findAvailableBlock(type, size);
 
-    LOG_WARNING("Trying to find a correct block, found %d with size %d", memoryBlock.index, memoryBlock.size);
+    LOG_INFO("Trying to find a correct block, found %d with size %d", memoryBlock.index, memoryBlock.size);
     // There is no memory in the correct type with enough space
     if (memoryBlock.size != 0)
     {
         return memoryBlock;
     }
-    LOG_WARNING("Could not find a block with the right size switching a block to my type");
+    LOG_INFO("Could not find a block with the right size switching a block to my type");
     memoryBlock = this->findAvailableBlock(type, size, true);
     return memoryBlock;
 }
@@ -96,7 +94,7 @@ const video_memory_proxy VideoManager::getVideoMemoryForScreenBlock(u32 screenbl
 
 video_memory_proxy VideoManager::findAvailableBlock(MemoryType output_type, u32 size, bool allowEmpty) {
     
-    u32 starting_index=0, last_index=0, screen_block_index=0;;
+    u32 starting_index=0, last_index=0, screen_block_index=0;
     switch (output_type)
     {
         // Only allowed in the 1st 4 charblock (0 -> 3)
@@ -218,7 +216,7 @@ Object* VideoManager::createObject(const animation_resource* resource, video_mem
 void VideoManager::removeObject(Object* object) {
 
     u32 index = (object->obj_att - oam_mem);
-    LOG_WARNING("Deleting object with id: %d", index);
+    LOG_INFO("Deleting object with id: %d", index);
     delete object;
 
     u32 chunk_index = index / 32;

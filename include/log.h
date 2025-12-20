@@ -39,10 +39,16 @@ void mgba_close(void);
 void mgba_printf(int level, const char* string, ...);
 bool mgba_console_open(void);
 
-#define LOG_ERROR(...) mgba_printf(MGBA_LOG_ERROR, __VA_ARGS__);
-#define LOG_WARNING(...) mgba_printf(MGBA_LOG_WARN, __VA_ARGS__);
-#define LOG_DEBUG(...) mgba_printf(MGBA_LOG_DEBUG, __VA_ARGS__);
-#define LOG_INFO(...) mgba_printf(MGBA_LOG_INFO, __VA_ARGS__);
+#if defined(__cplusplus) && defined(__GNUC__)
+#define LOG_FUNC_NAME __PRETTY_FUNCTION__
+#else
+#define LOG_FUNC_NAME __func__
+#endif
+
+#define LOG_ERROR(fmt, ...) mgba_printf(MGBA_LOG_ERROR, "%s: " fmt, LOG_FUNC_NAME, ##__VA_ARGS__);
+#define LOG_WARNING(fmt, ...) mgba_printf(MGBA_LOG_WARN, "%s: " fmt, LOG_FUNC_NAME, ##__VA_ARGS__);
+#define LOG_DEBUG(fmt, ...) mgba_printf(MGBA_LOG_DEBUG, "%s: " fmt, LOG_FUNC_NAME, ##__VA_ARGS__);
+#define LOG_INFO(fmt, ...) mgba_printf(MGBA_LOG_INFO, "%s: " fmt, LOG_FUNC_NAME, ##__VA_ARGS__);
 
 #ifdef __cplusplus
 }

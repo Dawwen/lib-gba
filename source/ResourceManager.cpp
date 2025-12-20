@@ -21,10 +21,8 @@ ResourceManager::getAnimationResource(u32 id) {
     while (ressource < (animation_resource*)mEndResourceData) {
         if (ressource->id == id)
         {
-            LOG_WARNING("Found ressource");
             return ressource;
         }
-        LOG_WARNING("Getting next ressource");
         ressource = nextResource(ressource);
     }
     

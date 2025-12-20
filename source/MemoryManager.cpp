@@ -27,7 +27,7 @@ video_memory_proxy MemoryManager::availableSpace(u32 size)
     // Look into the list for free memory
     for (auto& freeMemory: freeMemoryList)
     {
-        LOG_WARNING("Free Memory: index %d, size %d", freeMemory.index, freeMemory.size );
+        LOG_INFO("Free Memory: index %d, size %d", freeMemory.index, freeMemory.size );
         // If there is  just enough space
         if (freeMemory.size == size)
         {
@@ -85,7 +85,8 @@ void MemoryManager::reset()
     u16 *start_memory_block   = (u16 *)(tile_mem[screenBlockIndex / 8]) + (screenBlockIndex % 8) * sizeof(screen_block);
     u16 *end_memory_block   = start_memory_block + sizeof(screen_block);
     u16 *ptr = start_memory_block;
-
+    
+    // TODO:
     LOG_INFO("block %d ptr start 0x%x ", screenBlockIndex, start_memory_block);
     LOG_INFO("block %d ptr end 0x%x ", screenBlockIndex, end_memory_block);
     
