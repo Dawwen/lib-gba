@@ -111,6 +111,11 @@ void Object::move(u16 dx, u16 dy) {
     this->setY(this->getY() + dy);
 }
 
+void Object::setPosition(u16 x, u16 y) {
+    this->setX(x);
+    this->setY(y);
+}
+
 void Object::setTileIndex(u16 tile_index)
 {
     set_object_tile(this->obj_att, tile_index);

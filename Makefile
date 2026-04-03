@@ -41,7 +41,7 @@ CFLAGS	:=	-g -Wall -O3\
 
 CFLAGS	+=	$(INCLUDE)
 
-CXXFLAGS = $(CFLAGS) -std=c++20
+CXXFLAGS = $(CFLAGS) -std=c++20 -Wno-volatile
 
 ASFLAGS	:=	$(ARCH)
 LDFLAGS	=	-g $(ARCH) -Wl,-Map,$(notdir $@).map

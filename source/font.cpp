@@ -76,9 +76,9 @@ void freeFont()
     // unpackedFont = 0;
 }
 
-u16* getCharacter(char c)
-{
-    // if (c >= ' ' && c <= '~')
-    //     return &(unpackedFont[(c - ' ') * CHARACTER_HEIGHT * CHARACTER_WIDTH]);
-    // return &(unpackedFont[('?' - ' ') * CHARACTER_HEIGHT * CHARACTER_WIDTH]);
-}
+// u16* getCharacter(char c)
+// {
+//     if (c >= ' ' && c <= '~')
+//         return &(unpackedFont[(c - ' ') * CHARACTER_HEIGHT * CHARACTER_WIDTH]);
+//     return &(unpackedFont[('?' - ' ') * CHARACTER_HEIGHT * CHARACTER_WIDTH]);
+// }

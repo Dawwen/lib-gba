@@ -39,7 +39,7 @@ u32 readPins()
 
 void setPin(Pin pin, InOut input)
 {
-    REG_CNT = (REG_CNT & ~(1 << pin + 4)) | (input << (pin + 4));
+    REG_CNT = (REG_CNT & ~(1 << (pin + 4))) | (input << (pin + 4));
 }
 
 void setOutputPin(Pin pin, bool value)

@@ -31,6 +31,8 @@ class Object
         u16 getY();
         void setY(u16 y);
         void move(u16 dx, u16 dy);
+        void setPosition(u16 x, u16 y);
+
 
         void setTileIndex(u16 tile_index);
         void setPaletIndex(u16 palet_index);

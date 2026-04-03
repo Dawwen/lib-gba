@@ -12,6 +12,8 @@
 // #define object_palet_mem ((volatile u16 *)(MEM_PAL + 0x200))
 // #define tile_mem         ((volatile tile_block *)MEM_VRAM)
 
+#define PALET_4BPP_SIZE 16
+
 
 #define CHUNK_WIDTH 8
 #define CHUNK_HEIGHT 8
@@ -25,6 +27,29 @@ VideoManager::VideoManager()
 
 }
 
+
+bool
+setupPalet4bpp(volatile u16* palet_adress, u32 palet_index, const u16* palet, u32 palet_length, u32 offset=0)
+{
+    if (offset >= PALET_4BPP_SIZE)
+    {
+        LOG_ERROR("Offset %d is out of bounds for 4bpp palet", offset);
+        return true;
+    }
+    if (palet_length + offset > PALET_4BPP_SIZE)
+    {
+        LOG_ERROR("Palet length %d with offset %d is out of bounds for 4bpp palet", palet_length, offset);
+        return true;
+    }
+    
+
+    for (u32 k = 0; k < palet_length; k++)
+    {
+        palet_adress[palet_index * PALET_4BPP_SIZE + k + offset] = palet[k];
+    }
+    return false;
+}
+
 VideoManager::~VideoManager()
 {
 }
@@ -32,22 +57,16 @@ VideoManager::~VideoManager()
 bool
 VideoManager::setupObjectPalet4bpp(u32 palet_index, const u16* palet, u32 palet_length)
 {
-    for (u32 k = 0; k < palet_length; k++)
-    {
-        object_palet_mem[palet_index * 16 + k] = palet[k];
-    }
-    return false;
+    return setupPalet4bpp(object_palet_mem, palet_index, palet, palet_length);
 }
 
 bool
 VideoManager::setupBGMPalet4bpp(u32 palet_index, const u16* palet, u32 palet_length)
 {
-    for (u32 k = 0; k < palet_length; k++)
-    {
-        bgm_palet_mem[palet_index * 16 + k] = palet[k];
-    }
-    return false;
+    return setupPalet4bpp(bgm_palet_mem, palet_index, palet, palet_length);
 }
+
+// VRAM Management
 
 const video_memory_proxy VideoManager::getVideoMemoryForBGMTile(u32 size)
 {
@@ -176,6 +195,8 @@ video_memory_proxy VideoManager::findAvailableBlock(MemoryType output_type, u32 
     };
     return memoryBlock;
 }
+
+// Object Management
 
 u32 VideoManager::findAvailableObject() {
 

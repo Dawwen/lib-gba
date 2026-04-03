@@ -12,6 +12,7 @@
 
 struct s_video_memory_proxy
 {
+    u8 sb_index;
     u32 index;
     u32 size;
     u16* ptr;
