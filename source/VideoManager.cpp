@@ -102,10 +102,22 @@ const video_memory_proxy VideoManager::getVideoMemoryForScreenBlock()
 
 const video_memory_proxy VideoManager::getVideoMemoryForScreenBlock(u32 screenblock_index)
 {
-    u32 charblock_index = screenblock_index / 8; 
+    u32 charblock_index = screenblock_index / 8;
+    u32 chunk = this->memoryLayout[charblock_index];
     u32 chunk_index = (screenblock_index % 8);
+    MemoryType current_type = static_cast<MemoryType>((chunk >> (chunk_index * 4)) & 0b1111);
     
     // Check if memory is available
+    if (current_type != MemoryType::bgm_map && current_type != MemoryType::unused)
+    {
+        LOG_ERROR("Screen block %d is already used for type %d, cannot use it for bgm_map", screenblock_index, current_type);
+        video_memory_proxy memoryBlock = {
+            .index = 0,
+            .size = 0,
+            .ptr = nullptr
+        };
+        return memoryBlock;
+    }
 
     // Return it;
     return memoryManagers[screenblock_index].getAdress();

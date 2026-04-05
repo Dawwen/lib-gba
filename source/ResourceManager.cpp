@@ -6,7 +6,7 @@
 // extern void*  __stop_animation_resource[];
 
 animation_resource* nextResource(const animation_resource* data) {
-    void* ptr = (void*)(data->data + ((data->width * data->height * data-> atlas_length) / 4) + data->palet_length + data->ani_length);
+    char* ptr = (char*)(data->data + ((data->width * data->height * data-> atlas_length) / 4) + data->palet_length + data->ani_length);
     // 32bit alignement
     if ((u32)ptr % 4)
     {

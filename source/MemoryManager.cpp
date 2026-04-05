@@ -77,9 +77,9 @@ bool MemoryManager::free(video_memory_proxy& memoryBlock)
     }
 
     int index = 0;
-    video_memory_proxy* blockToLeft;
+    video_memory_proxy* blockToLeft = nullptr;
     u32 rightIndex = 0;
-    video_memory_proxy* blockToRight;
+    video_memory_proxy* blockToRight = nullptr;
     // Look into the list for free memory
     
     for (auto& freeMemory: freeMemoryList)
