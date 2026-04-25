@@ -32,6 +32,8 @@ extern struct circ_buff g_uart_rcv_buffer;
 
 void init_uart(unsigned short uart);
 // void setCommunicationToUART();
+
+unsigned int get_frame_counter();
 void snd_uart_ret(const char out[], int len);
 int rcv_uart_ret(char in[]);
 void handle_console_uart_ret();
